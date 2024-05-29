@@ -1,17 +1,20 @@
+# Import the necessary modules
 import pytube
 from pytube import YouTube
 
 # Function to download a video from YouTube
+
 def download_video(link):
     try:
-        # Attempt to download the first stream of the video
-        YouTube(link).streams.first().download(r"C:\Users\misandfo\Downloads")
+        yt = YouTube(link)
+        # Get the highest resolution stream available
+        stream = yt.streams.get_highest_resolution()
+        # Download the video
+        stream.download(r"C:\Users\misandfo\Downloads")
         print("Video downloaded successfully")
     except pytube.exceptions.PytubeError as e:
-        # Handle any exceptions thrown by pytube
         print("An error occurred: ", e)
     except Exception as e:
-        # Handle any other exceptions
         print("An unexpected error occurred: ", e)
 
 # Main function
